@@ -3,6 +3,7 @@ package com.webkeyz.jetpackcompose
 import androidx.compose.animation.core.ExperimentalTransitionApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -11,6 +12,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -26,15 +29,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.webkeyz.jetpackcompose.ui.theme.Purple500
 
-@ExperimentalTransitionApi
 @Composable
 fun FirstSCreen( navController : NavController){
-    ComposeTest()
-}
-
-@ExperimentalTransitionApi
-@Composable
-fun ComposeTest() {
     Column( horizontalAlignment = Alignment.CenterHorizontally , modifier = Modifier.background(
         Color.White)) {
         Image()
@@ -48,8 +44,29 @@ fun ComposeTest() {
             Text("Second Line",style = TextStyle(color = Color.Blue,fontStyle = FontStyle.Italic))
         }
         TextFild()
-        button()
-    }
+        val shape = CircleShape
+        Text(
+            text = "Text 1",
+            style = TextStyle(
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .border(2.dp, MaterialTheme.colors.secondary, shape)
+                .background(MaterialTheme.colors.primary, shape)
+                .padding(16.dp)
+                .clickable { navController.navigate("register_page") }
+                .onFocusChanged { Modifier.background(Color.Green) }
+
+        )    }
+
+}
+
+@Composable
+fun ComposeTest() {
+
 }
 
 @ExperimentalTransitionApi
@@ -59,23 +76,24 @@ fun DefaultPreview() {
     ComposeTest()
 }
 
-@Composable
-fun button(){
-    val shape = CircleShape
-    Text(
-        text = "Text 1",
-        style = TextStyle(
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .border(2.dp, MaterialTheme.colors.secondary, shape)
-            .background(MaterialTheme.colors.primary, shape)
-            .padding(16.dp)
-    )
-}
+//@Composable
+//fun button(){
+//    val shape = CircleShape
+//    Text(
+//        text = "Text 1",
+//        style = TextStyle(
+//            color = Color.White,
+//            fontWeight = FontWeight.Bold,
+//            textAlign = TextAlign.Center),
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(16.dp)
+//            .border(2.dp, MaterialTheme.colors.secondary, shape)
+//            .background(MaterialTheme.colors.primary, shape)
+//            .padding(16.dp)
+//            .clickable { navController.navigate("register_page") }
+//    )
+//}
 @Composable
 fun Image(){
     androidx.compose.foundation.Image(
